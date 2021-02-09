@@ -1,6 +1,7 @@
 ---
-title: 2-3. Unity 설치하기
-weight: 20
+title: Unity 설치하기
+weight: 23
+pre: "<b>2-3. </b>"
 ---
 
 ## Unity 설치

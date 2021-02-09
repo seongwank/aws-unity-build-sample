@@ -1,6 +1,7 @@
 ---
-title: 2-1. EC2 Windows & RDP client 설치하기
-weight: 20
+title: EC2 Windows & RDP client 설치하기
+weight: 21
+pre: "<b>2-1. </b>"
 ---
 
 ## EC2에 적용할 IAM role 생성

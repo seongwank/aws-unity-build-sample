@@ -1,6 +1,7 @@
 ---
-title: 2-2. Jenkins 설치하기
-weight: 20
+title: Jenkins 설치하기
+weight: 22
+pre: "<b>2-2. </b>"
 ---
 
 {{% notice note %}}

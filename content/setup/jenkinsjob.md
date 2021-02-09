@@ -1,6 +1,7 @@
 ---
-title: 2-4. Unity Build Job 생성하기
-weight: 20
+title: Unity Build Job 생성하기
+weight: 24
+pre: "<b>2-4. </b>"
 ---
 {{% notice note %}}
 한국어로 설정된 Local PC에서 public DNS로 젠킨스에 접속하시면 한글로 번역된 Jenkins 화면을 보실 수 있습니다.

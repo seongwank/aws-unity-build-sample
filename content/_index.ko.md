@@ -5,11 +5,7 @@ weight: 20
 chapter: true
 ---
 
-# 이 Lab은 Android 빌드를 code pipeline 을 활용하여 할 수 있습니다.
-
----
-
-
+# AWS CodePipeline으로 Unity Build Pipeline 구현하기
 
 ---
 <p align="center">
