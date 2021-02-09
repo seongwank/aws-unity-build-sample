@@ -1,3 +1,4 @@
+
 :root{
 
     --MAIN-TEXT-color:#232F3E; /* Color of text by default */
@@ -15,7 +16,7 @@
 
     --MENU-SECTIONS-ACTIVE-BG-color:#232F3E; /* Background color of the active section and its childs */
     --MENU-SECTIONS-BG-color:#161E2D; /* Background color of other sections */
-    --MENU-SECTIONS-TEXT-color: #FF9900; /*Color of pre text */
+    --MENU-SECTIONS-TEXT-color: #FFFFFF; /*Color of pre text */
     --MENU-SECTIONS-LINK-color: #ccc; /* Color of links in menu */
     --MENU-SECTIONS-LINK-HOVER-color: #e6e6e6;  /* Color of links in menu, when hovered */
     --MENU-SECTION-ACTIVE-CATEGORY-color: #232F3E; /* Color of active category text */
@@ -28,20 +29,26 @@
 }
 
 @font-face {
-    font-family: 'Amazon Ember';
-    src: url("../webfonts/AmazonEmber_W_Lt.eot");
-    src: url("../webfonts/AmazonEmber_W_Lt.eot?#iefix") format("embedded-opentype"), url("../webfonts/AmazonEmber_W_Lt.woff2") format("woff2"), url("../webfonts/AmazonEmber_W_Lt.woff") format("woff");
+    font-family: 'Roboto';
+    src: url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+    /* src: url("../webfonts/AmazonEmber_W_Lt.eot"); */
+    /* src: url("../webfonts/AmazonEmber_W_Lt.eot?#iefix") format("embedded-opentype"), url("../webfonts/AmazonEmber_W_Lt.woff2") format("woff2"), url("../webfonts/AmazonEmber_W_Lt.woff") format("woff"); */
     font-style: normal;
     font-weight: 200;
 }
 
-body {
-    font-family: "Amazon Ember", "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
-    color: var(--MAIN-TEXT-color) !important;
+@font-face {
+    font-family: 'Roboto';
+    src: url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+    /* src: url("../webfonts/AmazonEmber_W_Bd.eot"); */
+    /* src: url("../webfonts/AmazonEmber_W_Bd.eot?#iefix") format("embedded-opentype"), url("../webfonts/AmazonEmber_W_Bd.woff2") format("woff2"), url("../webfonts/AmazonEmber_Bd_Lt.woff") format("woff"); */
+    font-style: bold;
+    font-weight: 600;
 }
 
-#chapter h3 {
-    font-family: "Amazon Ember","Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+body {
+    font-family: "Roboto", "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    color: var(--MAIN-TEXT-color) !important;
 }
 
 textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="url"]:focus, input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, select[multiple=multiple]:focus {
@@ -50,35 +57,22 @@ textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[typ
 }
 
 h2, h3, h4, h5, h6 {
-    font-family: "Amazon Ember", "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;    
+    font-family: "Roboto", "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
     color: var(--MAIN-TITLES-TEXT-color) !important;
+    font-weight: 300;
 }
 
 h1 {
-    font-family: "Amazon Ember", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    font-family: "Roboto", "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
 }
 
+#chapter h1 {
+    margin-top: 0;   
+}
 
-h1 {
-font-size: 2.5rem; }
-
-h2 {
-font-size: 1.85rem; }
-
-h3 {
-font-size: 1.55rem; }
-
-h4 {
-font-size: 1.4rem; }
-
-h5 {
-font-size: 0.9rem; }
-
-h6 {
-font-size: 0.6rem; }
-  
-body {
-font-size: 0.9rem !important;}
+#chapter h3 {
+    margin-top: 0;
+}
 
 a {
     color: var(--MAIN-LINK-color);
@@ -124,6 +118,7 @@ a:hover {
   font-size: 10px;
   letter-spacing: .15px;
   line-height: 150% !important;
+  font-weight: 300;
 }
 
 #body a.highlight:after {
@@ -291,4 +286,9 @@ div.notices.info p {
   }
   .btn-default:active {
     background-image: none !important;
+  }
+
+  #aws-logo {
+      margin-top: 15px;
+      margin-bottom: 25px;
   }

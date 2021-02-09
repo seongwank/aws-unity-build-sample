@@ -1,12 +1,12 @@
 ---
 title: Jenkins Build Server 구성
-weight: 30
+weight: 20
 pre: "<b>2. </b>"
 ---
 **본 실습은 Window OS에서 Jenkins를 활용하여 Unity Build Server를 구축하기 위한 과정입니다. 아래와 같이 4개의 주제로 이루어져 있습니다. 4가지 주제 모두 따라하셔야 workshop을 정상적으로 진행하실 수 있습니다.** <br/><br/>
 
 {{% notice warning %}}
-이 부분이 가장 할일이 많습니다. 하지만 Code pipeline 설정과 테스트는 그렇지 않으니 너무 걱정하지 마세요
+이 부분은 실습을 진행하기 위한 Application을 설치하고 설정하는 과정이기 때문에 조금 길 수 있습니다. AWS CodePipeline 만들기, 실행하기는 이보다 간단하니 이 점 참고하시고 실습을 진행하시면 심신안정에 도움이 됩니다.
 {{% /notice %}}
 
 ### 목차 
@@ -14,14 +14,6 @@ pre: "<b>2. </b>"
 2. Jenkins 설치하기
 3. Unity 설치하기
 4. Jenkins Unity Build Job 생성하기
-
-{{% notice warning %}}
-프리 티어 유지를 위해서 인스턴스 타입을 ***t2.micro*** 에서 변경하지 않습니다.
-{{% /notice %}}
-
-{{% notice info %}}
-키 쌍(Key Pairs)는 각 리전(Region)별로 독립적으로 관리됩니다.
-{{% /notice %}}
 
 ---
 <p align="center">

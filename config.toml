@@ -1,27 +1,23 @@
-# baseURL 변경
-# baseURL = "/"
-languageCode = "ko-KR"
-defaultContentLanguage = "ko"
-
-# title 변경
 title = "AWS Unity Android Build Pipeline"
+googleAnalytics = "UA-161422664-1"
+anguageCode = "ko-KR"
+defaultContentLanguage = "ko"
 theme = "hugo-theme-learn"
-themesdir = "."
-metaDataFormat = "yaml"
+showHeaderLanguageChooser=true
 defaultContentLanguageInSubdir= true
-#ignoreFiles = [ "\\.*lab3\\.*" ]
-
-# description, author 변경
-[params]
-  description = "AWS Unity Android Build Pipeline"
-  author = "Seongwan Koo"
-  showVisitedLinks = true
-  disableBreadcrumb = false
-  disableNextPrev = false
-  themeVariant = "aws"
+#metaDataFormat = "yaml"
+#baseURL = ""
 
 [outputs]
 home = [ "HTML", "RSS", "JSON"]
+
+[params]
+  showVisitedLinks = false
+  disableBreadcrumb = false
+  disableNextPrev = false
+  themeVariant = "aws"
+  disableInlineCopyToClipBoard = false
+  author = "Seongwan Koo"
 
 [[menu.shortcuts]] 
   name = "<i class='fab fa-aws'></i> AWS Homepage"
@@ -40,15 +36,19 @@ home = [ "HTML", "RSS", "JSON"]
 
 [[menu.shortcuts]]
   name = "<i class='fab fa-github'></i> Github"
-  url = "https://github.com/studydev/hugo-workshop"
+  url = "https://github.com/seongwank/aws-unity-build-sample"
   weight = 1040
 
-[Languages.ko]
-title = "AWS Unity Android Build Pipeline"
-weight = 1
-languageName = "한국어"
+[Languages]
+  [Languages.ko]
+    weight = 1
+    languageName = "한국어"
 
-[[Languages.ko.menu.shortcuts]]
-name = "<i class='fas fa-fw fa-bullhorn'></i> 크레딧"
-url = "/credits/"
-weight = 30
+#  [Languages.en]
+#    weight = 2
+#    languageName = "English"
+
+[deployment]
+  [[deployment.targets]]
+    name = "s3"
+    URL = "s3://hugo.awsdemo.kr?region=ap-northeast-2"

@@ -16,10 +16,13 @@ EC2 Windows를 생성하는 이유는 CodePipeline과 연동할 수 있는 Jenki
 3. 다음으로 검색창에서 `AWSCodePipelineCustomActionAccess`를 검색하여 선택한 후 **Next: Tags**버튼을 눌러 다음으로 넘어갑니다.
 ![IAM Role](/images/ec2/selectpipelinerole.png)
 
-4. **Add tags (optional)**부분에서는 이 실습에서는 아무것도 입력하실 필요가 없습니다. **Next: Review**버튼을 클릭하여 다음으로 넘어갑니다.
+1. **Add tags**부분에서는 이 실습에서는 아무것도 입력하실 필요가 없습니다. **Next: Review**버튼을 클릭하여 다음으로 넘어갑니다.
 ![IAM Role](/images/ec2/selectpipelinerole.png)
 
 5. 마지막으로 **Review**에서는 **Role name**에 `ec2-windows-jenkins-role`을 입력한 후 **Create role**버튼을 클릭하여 IAM role 생성을 마칩니다.
+
+
+
 
 ## EC2 Windows Server Launch 
 {{% notice note %}}
@@ -27,10 +30,9 @@ EC2 Windows를 생성하는 이유는 CodePipeline과 연동할 수 있는 Jenki
 {{% /notice %}} 
 
 1. EC2 Dashboard 에서 **Launch instance** 버튼을 클릭합니다.
-
 ![EC2 dashboard](/images/ec2/ec2dashboard.png)
 
-2. EC2 생성 페이지의 **Step 1: Choose an Amazon Machine Image (AMI)**에서 Windows AMI를 선택합니다. 이 실습에서는 **Microsoft Windows Server 2019 Base - ami-0ff0049cd3c9a5fcb** 를 선택하겠습니다.
+2. EC2 생성 페이지의 **Step 1: Choose an Amazon Machine Image - AMI**에서 Windows AMI를 선택합니다. 이 실습에서는 **Microsoft Windows Server 2019 Base - ami-0ff0049cd3c9a5fcb** 를 선택하겠습니다.
 {{% notice info %}}
 물론 꼭 이 버전의 Windows Server AMI를 선택해야 하는 것은 아닙니다. Jenkins, Unity가 설치 가능한 다른 Windows 버전 AMI를 선택 하실 수 있습니다.
 {{% /notice %}} 
@@ -42,7 +44,7 @@ EC2 Windows를 생성하는 이유는 CodePipeline과 연동할 수 있는 Jenki
 
 4. 다음으로 **Configure Instance Details** 입니다. 여기서 설정하셔야 하는 부분은 **Network**, **Subnet**입니다. 
    + **Network**는 VPC를 선택하는 곳입니다. 여러분의 Console에서 생성된 VPC중 적절한 VPC를 골라 설정합니다, 그렇지 않다면 AWS 계정을 생성했을 때 기본으로 생성된 **default VPC**를 선택합니다. 
-   + **Subnet**도 마찬가지로 여러분이 이미 생성한 Subnet중에서 선택할 수 있습니다. 만약 생성한 Subnet이 없다면 **Create new subnet** 을 선택하여 새로운 Subnet을 생성합니다. Subnet을 생성할때 **AZ(Availability Zone)** 은 Region내에 존재하는 AZ 중 아무거나 선택하셔도 괜찮습니다. 
+   + **Subnet**도 마찬가지로 여러분이 이미 생성한 Subnet중에서 선택할 수 있습니다. 만약 생성한 Subnet이 없다면 **Create new subnet** 을 선택하여 새로운 Subnet을 생성합니다. Subnet을 생성할때 **AZ - Availability Zone** 은 Region내에 존재하는 AZ 중 아무거나 선택하셔도 괜찮습니다. 
    + **IAM role**항목에서는 여러분이 윗 단계에서 생성하신 `ec2-windows-jenkins-role`를 찾아 선택합니다.
 
 5. 나머지 설정은 이 실습을 진행하는데 큰 의미가 없습니다. 따라서 그대로 놔두고 **Next:Add Storage**를 클릭합니다.
@@ -80,10 +82,10 @@ Download된 pem file은 본 실습에서 원격으로 Windows에 접속할때 �
 
 4. [RDP Client](https://www.microsoft.com/ko-kr/p/microsoft-remote-desktop/9wzdncrfj3ps)를 Local PC에 설치합니다. 
 
-5. **Microsoft Remote Desktop**을 제대로 설치하였다면 **2.**에서 다운로드 받았던 rdp file을 실행합니다.
+5. **Microsoft Remote Desktop**을 제대로 설치하였다면 2. 에서 다운로드 받았던 rdp file을 실행합니다.
 ![RDP](/images/ec2/rdp.png)
 
-6. 3.에서 저장한 Password를 입력하면 EC2 Windows instance의 GUI 환경으로 접속하실 수 있습니다.
+6. 3. 에서 저장한 Password를 입력하면 EC2 Windows instance의 GUI 환경으로 접속하실 수 있습니다.
 
 7. 접속 후 **Network** 허용 창이 뜨면 **Yes**를 누릅니다.
 
