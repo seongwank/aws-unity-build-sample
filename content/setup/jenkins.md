@@ -16,23 +16,15 @@ pre: "<b>2-2. </b>"
 
 
 ## Java 설치
-1. 다운로드 권한을 활성화 시켰다면 Jenkins를 설치하기 위해 먼저 Java JDK를 설치해야 합니다. Windows x64 product의 JDK 8을[다운로드](https://www.oracle.com/kr/java/technologies/javase/javase-jdk8-downloads.html)받습니다.
-![JDK8 Download](/images/ec2/jdk8download.png)
+1. 다운로드 권한을 활성화 시켰다면 Jenkins를 설치하기 위해 먼저 Java JDK를 설치해야 합니다. Windows x64 product의 JDK 11을 [다운로드](https://jdk.java.net/java-se-ri/11)합니다.
+![JDK11 Download](/images/ec2/jdk11download.png)
 {{% notice info %}}
-본 실습에서는 JDK 8 버전을 사용합니다.
-또한 Java를 다운로드 받기 위해서는 Oracle 계정이 필요합니다. 계정을 생성하고 로그인하면 다운로드가 가능합니다.
+본 실습에서는 JDK 11 사용합니다. 현재(2020년 2월) Jenkins는 [JDK 8, JDK 11 버전](https://www.jenkins.io/doc/administration/requirements/java/)을 이용해 설치가 가능합니다. 오직 Jenkins 설치에만 사용하는 것이기 때문에 혹시 여러분들이 실제로 사용하는 JDK 버전과 맞지 않아 고민하실 필요없습니다. 또한 openJDK 뿐만 아니라 oracle JDK로 설치하셔도 무방합니다.
 {{% /notice %}}
 
-3. File explorer에서 Download 폴더의 jdk-8uxxx-windows-x64를 더블클릭하여 설치를 진행 합니다.
+2. File explorer에서 Download 폴더의 openjdk-11+xx_windows-x64_bin폴더 내부에 있는 **jdk-11**을 **C:\Program Files\java**의 하위 폴더로 복사합니다.
+![JDK 11 Download](/images/ec2/jdkcopy.png)
 
-3. 설치가 완료되면 환경 변수를 설정합니다. 
-   + 먼저 Windows창 왼쪽 하단의 검색 버튼을 클릭합니다. 그리고 **edit the system environment variables**를 타이핑 합니다. 
-   + 검색해서 나온 Control panel을 클릭합니다. 
-   + **System properies** 창이 실행되면 **Advanced -> Environment Variables**를 클릭합니다. 
-   + 그리고 **System variables**의 항목에서 **path**를 더블 클릭합니다. 
-   + **Edit environment variable**창이 실행되면 오른쪽 버튼들 중 **new**를 클릭하여 JDK가 설치된 folder를 입력합니다. 여러분이 과정을 그대로 따라하였다면 JDK의 위치는 다음과 같습니다. `c:\Program Files\Java\jdk1.8.0_xxx\bin` 
-   + **OK**를 눌러 설정을 마칩니다.
-![JDK 환경 변수 설정](/images/ec2/jdkpath.png)
 
 
 
@@ -45,7 +37,7 @@ pre: "<b>2-2. </b>"
 
 2. Jenkins를 다운로드 받은 후 File explorer에서 Download 폴더의 **jenkins**를 실행하여 설치를 합니다.
 {{% notice info %}}
-설치 중 **Service Logon Credentials** Step에서는 **Run service as local or domain user:**를 선택합니다. 그리고 Account는 `Administrator`이고 Password는 **EC2 Console에서 RDP client로 접근하기 위해 열람한 Password**입니다.
+설치 중 **Service Logon Credentials** Step에서는 **Run service as local or domain user**를 선택합니다. 그리고 Account는 `Administrator`이고 Password는 **EC2 Console에서 RDP client로 접근하기 위해 열람한 Password**입니다.
 {{% /notice %}}
 ![Jenkins 설치 실패 화면](/images/ec2/jenkinsprivilege.png)
    #### 만약 위 그림과 같이 설치가 실패한다면 아래의 과정을 거쳐 문제를 해결하실 수 있습니다.
@@ -55,16 +47,19 @@ pre: "<b>2-2. </b>"
    + **Add User or Group**을 클릭하고 Enter **the object names to select**에서 **administrator**를 입력하고 **Check Names**를 클릭한 후 **OK**를 클릭합니다.
    ![Allow port](/images/ec2/allowprivilege.png)
 
-3. Jenkins 설치가 완료되면 완료 창에서 시작 버튼을 눌러 Jenkins를 실행합니다.
+3. 설치 중 Java home directory를 선택하는 창에서는, 위에서 복사해놓은 `C:\Program Files\java\jdk-11`을 지정하시면 됩니다.
+![Jenkins admin](/images/ec2/choosejdkpath.png)
 
-4. 원격으로 접근한 Windows EC2 instance에서 인터넷 브라우저를 열어 **localhist:8080**에 접근합니다. **Unlock Jenkins** 에서능 **initialAdminPassword** file을 Notepad에서 열어 Administrator password를 얻어 입력합니다. **Customize Jenkins**에서는 **Install suggested plugins**를 선택합니다. 모든 설정을 완료하고 **Save and Finish**를 눌러 설치를 마칩니다.
+4. Jenkins 설치가 완료되면 완료 창에서 시작 버튼을 눌러 Jenkins를 실행합니다.
+
+5. 원격으로 접근한 Windows EC2 instance에서 인터넷 브라우저를 열어 **localhist:8080**에 접근합니다. **Unlock Jenkins** 에서능 **initialAdminPassword** file을 Notepad에서 열어 Administrator password를 얻어 입력합니다. **Customize Jenkins**에서는 **Install suggested plugins**를 선택합니다. 모든 설정을 완료하고 **Save and Finish**를 눌러 설치를 마칩니다.
 ![Jenkins admin](/images/ec2/jenkinsadmin.png)
 
-5. 4번까지 진행하면, Jenkins 설치가 모두 완료가 되었습니다. 하지만 Local PC와 Codepipeline이 접근하기 위해서는 Windows의 port를 열어 접근할 수 있도록 조치를 취해야 합니다. 
+6. 4번까지 진행하면, Jenkins 설치가 모두 완료가 되었습니다. 하지만 Local PC와 Codepipeline이 접근하기 위해서는 Windows의 port를 열어 접근할 수 있도록 조치를 취해야 합니다. 
    - Windows 왼쪽 하단의 Search(돋보기 모양)를 클릭합니다. 
    - **Windows Defender Firewall**을 타이핑하고 **Windows Firewall control panel**를 클릭합니다.
    - 왼쪽 프레임의 **Advanced settings**를 선택합니다.
-   - 왼쪽 프레임의 **Inbound Rules**를 클릭합니다. 그리고 오른쪽 프레임의 **New Rule...**을 클릭합니다.
+   - 왼쪽 프레임의 **Inbound Rules**를 클릭합니다. 그리고 오른쪽 프레임의 **New Rule**을 클릭합니다.
    - **Port**를 선택하고 **Next**를 클릭합니다.
    - **TCP**를 선택하고 **Specific local ports**를 클릭하고 `8080`을 입력한 후 **Next**를 클릭합니다.
    - **Allow the connection**을 선택하고 **Next**를 클릭합니다.
@@ -72,7 +67,7 @@ pre: "<b>2-2. </b>"
    - **Name**에 `Jenkins port`를 입력하고 **Finish**를 클릭합니다.
 ![Allow port](/images/ec2/allowport.png)
 
-6. Port가 제대로 연결되었는지 확인하기 위하여 Windows EC2 instance의 Public DNS를 이용하여 테스트해봅니다.
+7. Port가 제대로 연결되었는지 확인하기 위하여 Windows EC2 instance의 Public DNS를 이용하여 테스트해봅니다.
 Public DNS는 AWS console의 **EC2 dashboard -> Running Instances -> Windows EC2 선택 -> Description의 Public DNS(IPv4)** 에서 확인하실 수 있습니다.
 ![Public DNS](/images/ec2/publicdns.png)
 

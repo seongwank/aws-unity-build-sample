@@ -42,7 +42,7 @@ pre: "<b>2-4. </b>"
 
 4. **AWS Region**에서 여러분의 Region을 선택합니다. 이번 실습에서는 **Asia Pacific(Seoul) ap-northeast-2**를 선택하였습니다. 그리고 **Category**에서는 `Build`를 선택합니다. 마지막으로 **Provider**는 `android-build-provider`를 입력합니다. 그외에는 아무것도 입력하지 않고 그대로 냅두셔도 괜찮습니다.
 ![CodePipeline setting](/images/ec2/awscodepipeline.png)
-{{% notice info %}}
+{{% notice note %}}
 **Provider**는 CodePipeline의 Build 설정에 꼭 필요한 변수입니다. 
 {{% /notice %}}
 
@@ -66,7 +66,7 @@ pre: "<b>2-4. </b>"
 **Artifact Name**는 CodePipeline의 Build 설정에 꼭 필요한 변수입니다. 
 {{% /notice %}}
 
-12.  가장 하단의 **저장(Save)** 버튼을 클릭하여 Jenkins Job 생성을 완료합니다.
+12.  가장 하단의 **저장-Save** 버튼을 클릭하여 Jenkins Job 생성을 완료합니다.
 
 
 
