@@ -1,6 +1,6 @@
 ---
 title: Unity 설치하기
-weight: 23
+weight: 22
 pre: "<b>2-2. </b>"
 ---
 {{% notice note %}}

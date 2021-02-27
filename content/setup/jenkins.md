@@ -1,6 +1,6 @@
 ---
 title: Jenkins 설치하기
-weight: 22
+weight: 23
 pre: "<b>2-3. </b>"
 ---
 

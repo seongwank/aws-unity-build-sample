@@ -11,8 +11,8 @@ pre: "<b>2. </b>"
 
 ### 목차 
 1. EC2 Windows & RDP client 설치하기
-2. Jenkins 설치하기
-3. Unity 설치하기
+2. Unity 설치하기
+3. Jenkins 설치하기
 4. Jenkins Unity Build Job 생성하기
 
 ---
