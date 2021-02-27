@@ -1,8 +1,16 @@
 ---
 title: Unity 설치하기
 weight: 23
-pre: "<b>2-3. </b>"
+pre: "<b>2-2. </b>"
 ---
+{{% notice note %}}
+이 과정에서는 원격으로 Windows EC2에 접속을 한 후 진행하는 실습입니다.
+{{% /notice %}}
+
+## IE download 권한 허용
+초기 Windows EC2 instance는 IE Enhanced Security Configuration이 활성화 되어있어서 File을 다운로드할 수 없습니다.
+따라서 [다운도르 문제 해결 문서](https://aws.amazon.com/ko/premiumsupport/knowledge-center/ec2-windows-file-download-ie/?nc1=h_ls)의 **해결 방법**을 따라하여 다운로드가 가능하도록 IE 설정을 변경합니다.
+![IE allow download](/images/ec2/allowdownload.png)
 
 ## Unity 설치
 1. 원격으로 Windows EC2 instance를 접속하여 인터넷 브라우저에서 Unity Download 링크에 접속하여 **Unity Hub**를 [다운로드](https://unity3d.com/get-unity/download) 받습니다.
