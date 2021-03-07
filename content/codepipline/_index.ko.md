@@ -23,7 +23,7 @@ pre: "<b>3. </b>"
 ![CodePipeline Console](/images/codepipeline/codepipelinesetting.png)
 
 3. **Add source stage**의 **Source provider**에서는 **GitHub (Version 2)**을 선택합니다. Connection에서 **Connect to GitHub**을 클릭합니다. 
-![CodePipeline Console](/images/codepipeline/githubconnect.png)
+![CodePipeline Console](/images/codepipeline/connectgithub.png)
 
 4. **Create GitHub App connection** 의 Conenction name에서는 자유롭게 name을 작성하실 수 있습니다. 여기서는 간단하게 `my GitHub`이라고 작성하겠습니다. 작성 후 **Connect to GitHub**을 클릭합니다. 클릭 후 새로 나오는 창에서 **Authorize AWS Connector for GitHub**을 클릭합니다.
 ![CodePipeline Console](/images/codepipeline/mygithub.png)
