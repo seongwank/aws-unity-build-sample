@@ -81,7 +81,7 @@ Download된 pem file은 본 실습에서 원격으로 Windows에 접속할때 �
 
 3. 그리고 **Get Password**를 클릭합니다. 클릭하고 EC2 인스턴스를 생성하면서 선택한 **pem file**을 업로드합니다. 업로드를 하고 **Decrypt Password**를 클릭하면 password를 획득할 수 있습니다. 이 password를 저장해 둡니다. 
 
-4. [RDP Client](https://www.microsoft.com/ko-kr/p/microsoft-remote-desktop/9wzdncrfj3ps)를 Local PC에 설치합니다. 
+4. [RDP Client](https://docs.microsoft.com/ko-kr/windows-server/remote/remote-desktop-services/clients/remote-desktop-clients)를 Local PC에 설치합니다. 
 
 5. **Microsoft Remote Desktop**을 제대로 설치하였다면 2. 에서 다운로드 받았던 rdp file을 실행합니다.
 ![RDP](/images/ec2/rdp.png)
