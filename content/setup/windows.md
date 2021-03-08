@@ -38,7 +38,7 @@ EC2 Windows를 생성하는 이유는 CodePipeline과 연동할 수 있는 Jenki
 물론 꼭 이 버전의 Windows Server AMI를 선택해야 하는 것은 아닙니다. Jenkins, Unity가 설치 가능한 다른 Windows 버전 AMI를 선택 하실 수 있습니다.
 {{% /notice %}} 
 
-3. Instance Type을 선택합니다. 여기서는 **m5large**를 선택하였습니다.
+3. Instance Type을 선택합니다. 여기서는 **c5large**를 선택하였습니다.
 {{% notice info %}}
 이 역시 다른 type의 Instance를 선택하셔도 괜찮습니다. 다만 Unity Build를 위한 Jenkins 서버를 구축하는 목적임을 고려하여 적당한 타입의 Instance를 선택하는 것이 좋습니다. 이 실습을 위한 EC2 Instance라면, 실행하는 Build는 Empty Project이니 크게 무거운 작업이 아니기 때문에 너무 높은 Instance Type을 선택하실 필요는 없습니다.
 {{% /notice %}} 
@@ -50,7 +50,7 @@ EC2 Windows를 생성하는 이유는 CodePipeline과 연동할 수 있는 Jenki
 
 5. 나머지 설정은 이 실습을 진행하는데 큰 의미가 없습니다. 따라서 그대로 놔두고 **Next:Add Storage**를 클릭합니다.
 
-6. **Step. 4 Storage**는 Unity3d 설치를 위해 **Root Volume type**의 **Size**를 **최소 40gb 이상**으로 설정하는 것이 좋습니다. 그리고 **Next:Add Tag**를 클릭합니다.
+6. **Step. 4 Storage**는 Unity3d 설치를 위해 **Root Volume type**의 **Size**를 **최소 30gb 이상**으로 설정하는 것이 좋습니다. 그리고 **Next:Add Tag**를 클릭합니다.
 
 7. **Next:Add Tag**에서는 아무것도 입력하지 않고, **Next:Configure Security Group**를 클릭합니다.
 

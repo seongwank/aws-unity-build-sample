@@ -23,7 +23,6 @@ pre: "<b>4. </b>"
 ![codepipeline](/images/execution/pipeline.png)
 
 4. S3에 빌드가 완료된 artifacts를 확인해보시려면 Deploy 단계의 **Amazon S3**를 클릭하면 S3 bucket으로 접속해서 artifacts를 확인할 수 있습니다.
-![codepipeline](/images/execution/deploystep.png)
 ![codepipeline](/images/execution/s3.png)
 
 <!--앞으로 해야할일
