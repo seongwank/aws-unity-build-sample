@@ -73,5 +73,5 @@ pre: "<b>2-4. </b>"
 
 ---
 <p align="center">
-© 2020 Amazon Web Services, Inc. 또는 자회사, All rights reserved.
+© 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.
 </p>

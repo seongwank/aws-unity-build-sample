@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="ko" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.81.0" />
+    <meta name="description" content="">
+<meta name="author" content="Seongwan Koo">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>EC2 Windows &amp; RDP client 설치하기 :: AWS Unity Android Build Pipeline</title>
+
+    
+    <link href="/css/nucleus.css?1619088549" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1619088549" rel="stylesheet">
+    <link href="/css/hybrid.css?1619088549" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1619088549" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1619088549" rel="stylesheet">
+    <link href="/css/auto-complete.css?1619088549" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1619088549" rel="stylesheet">
+    <link href="/css/theme.css?1619088549" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1619088549" rel="stylesheet">
+    
+      <link href="/css/theme-aws.css?1619088549" rel="stylesheet">
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1619088549"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/setup/windows/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/" style="margin:auto;width:60%;padding:10px;">
+	<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+</a>
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1619088549"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1619088549"></script>
+<script type="text/javascript">
+    
+        var baseurl = "";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1619088549"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/introduction/" title="실습 소개" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/introduction/">
+          <b>1. </b>실습 소개
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/introduction/prerequisites/" title="사전 준비" class="dd-item ">
+        <a href="/introduction/prerequisites/">
+        <b>1-1. </b>사전 준비
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/setup/" title="Jenkins Build Server 구성" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/setup/">
+          <b>2. </b>Jenkins Build Server 구성
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/setup/windows/" title="EC2 Windows &amp; RDP client 설치하기" class="dd-item active">
+        <a href="/setup/windows/">
+        <b>2-1. </b>EC2 Windows &amp; RDP client 설치하기
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/setup/unity/" title="Unity 설치하기" class="dd-item ">
+        <a href="/setup/unity/">
+        <b>2-2. </b>Unity 설치하기
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/setup/jenkins/" title="Jenkins 설치하기" class="dd-item ">
+        <a href="/setup/jenkins/">
+        <b>2-3. </b>Jenkins 설치하기
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/setup/jenkinsjob/" title="Unity Build Job 생성하기" class="dd-item ">
+        <a href="/setup/jenkinsjob/">
+        <b>2-4. </b>Unity Build Job 생성하기
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/codepipline/" title="AWS CodePipline 만들기" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/codepipline/">
+          <b>3. </b>AWS CodePipline 만들기
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/execution/" title="AWS CodePipeline 실행하기" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/execution/">
+          <b>4. </b>AWS CodePipeline 실행하기
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3></h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="https://aws.amazon.com/"><i class='fab fa-aws'></i> AWS Homepage</a>
+              </li>
+          
+              <li> 
+                  <a class="padding" href="https://aws.amazon.com/blogs/aws/"><i class='fas fa-blog'></i> AWS Blog</a>
+              </li>
+          
+              <li> 
+                  <a class="padding" href="https://www.facebook.com/groups/awskrug/"><i class='fab fa-facebook-square'></i> Facebook</a>
+              </li>
+          
+              <li> 
+                  <a class="padding" href="https://github.com/seongwank/aws-unity-build-sample"><i class='fab fa-github'></i> Github</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="footer">
+      <left>
+    <section class="copyright">&copy; 2021 Amazon Web Services, Inc. or its Affiliates. All rights reserved.<section>
+</left>
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>홈</a> > <a href='/setup/'>Jenkins Build Server 구성</a> > EC2 Windows & RDP client 설치하기
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#ec2에-적용할-iam-role-생성">EC2에 적용할 IAM role 생성</a></li>
+    <li><a href="#ec2-windows-server-launch">EC2 Windows Server Launch</a></li>
+    <li><a href="#rdp-client-설치-및-연결">RDP Client 설치 및 연결</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              EC2 Windows &amp; RDP client 설치하기
+            </h1>
+          
+
+        
+
+
+
+<h2 id="ec2에-적용할-iam-role-생성">EC2에 적용할 IAM role 생성</h2>
+
+<div class="notices note" ><p>EC2 Windows를 생성하는 이유는 CodePipeline과 연동할 수 있는 Jenkins 서버를 구성하는 목적입니다. 따라서 EC2 instance가 CodePipeline과 연동하기 위한 권한을 먼저 생성하고, EC2 instance에 적용할 수 있도록 합니다.</p>
+</div>
+
+<ol>
+<li>
+<p><a href="https://console.aws.amazon.com/iam/home" target="_blank">IAM role console</a>
+에 접근합니다. 그리고 왼쪽 패널의 <strong>Roles</strong>를 클릭한 후, <strong>Create Role</strong>을 클릭합니다.
+<img src="/images/ec2/createrole.png" alt="IAM Role"></p>
+</li>
+<li>
+<p>그리고 <strong>Select type of trusted entity</strong>항목에서 <strong>AWS service</strong>를 클릭하고, <strong>Choose a use case</strong>에서 <strong>EC2</strong>를 클릭한 후 <strong>Next: Permissons</strong>버튼을 눌러 다음으로 넘어갑니다.
+<img src="/images/ec2/createec2role.png" alt="IAM Role"></p>
+</li>
+<li>
+<p>다음으로 검색창에서 <code>AWSCodePipelineCustomActionAccess</code>를 검색하여 선택한 후 <strong>Next: Tags</strong>버튼을 눌러 다음으로 넘어갑니다.
+<img src="/images/ec2/selectpipelinerole.png" alt="IAM Role"></p>
+</li>
+<li>
+<p><strong>Add tags</strong>부분에서는 이 실습에서는 아무것도 입력하실 필요가 없습니다. <strong>Next: Review</strong>버튼을 클릭하여 다음으로 넘어갑니다.
+<img src="/images/ec2/selectpipelinerole.png" alt="IAM Role"></p>
+</li>
+<li>
+<p>마지막으로 <strong>Review</strong>에서는 <strong>Role name</strong>에 <code>ec2-windows-jenkins-role</code>을 입력한 후 <strong>Create role</strong>버튼을 클릭하여 IAM role 생성을 마칩니다.</p>
+</li>
+</ol>
+<h2 id="ec2-windows-server-launch">EC2 Windows Server Launch</h2>
+
+<div class="notices note" ><p>이 과정은 EC2 Instance를 생성하기 위한 것입니다. 꼭 이 과정을 따라서 생성하실 필요는 없습니다. 다만 Unity Build를 위한 Jenkins 서버를 구성하기 위한 과정입니다. 따라서 Unity Build를 위한 충분한 Instance type, storage를 고려하셔서 생성하시는 걸 추천드립니다.</p>
+</div>
+
+<ol>
+<li>
+<p>EC2 Dashboard 에서 <strong>Launch instance</strong> 버튼을 클릭합니다.
+<img src="/images/ec2/ec2dashboard.png" alt="EC2 dashboard"></p>
+</li>
+<li>
+<p>EC2 생성 페이지의 <strong>Step 1: Choose an Amazon Machine Image - AMI</strong>에서 Windows AMI를 선택합니다. 이 실습에서는 <strong>Microsoft Windows Server 2019 Base - ami-0ff0049cd3c9a5fcb</strong> 를 선택하겠습니다.
+
+<div class="notices info" ><p>물론 꼭 이 버전의 Windows Server AMI를 선택해야 하는 것은 아닙니다. Jenkins, Unity가 설치 가능한 다른 Windows 버전 AMI를 선택 하실 수 있습니다.</p>
+</div>
+</p>
+</li>
+<li>
+<p>Instance Type을 선택합니다. 여기서는 <strong>c5large</strong>를 선택하였습니다.
+
+<div class="notices info" ><p>이 역시 다른 type의 Instance를 선택하셔도 괜찮습니다. 다만 Unity Build를 위한 Jenkins 서버를 구축하는 목적임을 고려하여 적당한 타입의 Instance를 선택하는 것이 좋습니다. 이 실습을 위한 EC2 Instance라면, 실행하는 Build는 Empty Project이니 크게 무거운 작업이 아니기 때문에 너무 높은 Instance Type을 선택하실 필요는 없습니다.</p>
+</div>
+</p>
+</li>
+<li>
+<p>다음으로 <strong>Configure Instance Details</strong> 입니다. 여기서 설정하셔야 하는 부분은 <strong>Network</strong>, <strong>Subnet</strong>입니다.</p>
+<ul>
+<li><strong>Network</strong>는 VPC를 선택하는 곳입니다. 여러분의 Console에서 생성된 VPC중 적절한 VPC를 골라 설정합니다, 그렇지 않다면 AWS 계정을 생성했을 때 기본으로 생성된 <strong>default VPC</strong>를 선택합니다.</li>
+<li><strong>Subnet</strong>도 마찬가지로 여러분이 이미 생성한 Subnet중에서 선택할 수 있습니다. 만약 생성한 Subnet이 없다면 <strong>Create new subnet</strong> 을 선택하여 새로운 Subnet을 생성합니다. Subnet을 생성할때 <strong>AZ - Availability Zone</strong> 은 Region내에 존재하는 AZ 중 아무거나 선택하셔도 괜찮습니다.</li>
+<li><strong>IAM role</strong>항목에서는 여러분이 윗 단계에서 생성하신 <code>ec2-windows-jenkins-role</code>를 찾아 선택합니다.</li>
+</ul>
+</li>
+<li>
+<p>나머지 설정은 이 실습을 진행하는데 큰 의미가 없습니다. 따라서 그대로 놔두고 <strong>Next:Add Storage</strong>를 클릭합니다.</p>
+</li>
+<li>
+<p><strong>Step. 4 Storage</strong>는 Unity3d 설치를 위해 <strong>Root Volume type</strong>의 <strong>Size</strong>를 <strong>최소 30gb 이상</strong>으로 설정하는 것이 좋습니다. 그리고 <strong>Next:Add Tag</strong>를 클릭합니다.</p>
+</li>
+<li>
+<p><strong>Next:Add Tag</strong>에서는 아무것도 입력하지 않고, <strong>Next:Configure Security Group</strong>를 클릭합니다.</p>
+</li>
+<li>
+<p><strong>Step 6: Configure Security Group</strong>은 총 2개의 Inbound Rule을 추가합니다.</p>
+<ul>
+<li>Type: RDP, Protocol: TCP, Port Range:3389, Source: Custom 0.0.0.0/0</li>
+<li>Type: Custom TCP Rule, Potocol: TCP, Port Range:8080, Source: Custom 0.0.0.0/0
+<img src="/images/ec2/ec2inbound.png" alt="Inbound Rules"></li>
+</ul>
+</li>
+<li>
+<p>입력을 마치면 <strong>Review and Launch</strong> 를 클릭 후, 제대로 입력이 되었는지 리뷰 후 <strong>Launch</strong>를 누릅니다.</p>
+</li>
+<li>
+<p>마지막으로 EC2 instance에 접근할 수 있는 key pair를 선택하는 Step입니다. 만약 이미 사용하고 있는 key pair가 있다면 <strong>Choose an existing key pair</strong>를 선택하여 이미 갖고있는 key pair를 선택하면 됩니다. 만약 새로운 key pair가 필요하다면 <strong>Create a new key pair</strong>를 선택하여 key pair name을 입력 후 <strong>Download Key Pair</strong>를 클릭하여 file을 Local PC에 다운로드 합니다.
+
+<div class="notices warning" ><p>Download된 pem file은 본 실습에서 원격으로 Windows에 접속할때 꼭 필요합니다.</p>
+</div>
+</p>
+</li>
+<li>
+<p>EC2 instance의 생성이 완료되었습니다!</p>
+</li>
+</ol>
+<h2 id="rdp-client-설치-및-연결">RDP Client 설치 및 연결</h2>
+
+<div class="notices note" ><p>이 과정은 RDP client를 Local PC에 설치하기 위한 과정입니다. 2-2 Jenkins 설치, 2-3 Unity 설치는 RDP client로 EC2 instance GUI환경에 접근한 후 진행됩니다.</p>
+</div>
+
+<ol>
+<li>
+<p>먼저 RDP로 접근할 수 있는 Password를 확인해야 합니다. <strong>EC2 Dashboard -&gt; INSTANCES -&gt; Instances</strong> 항목에서 생성한 Windows EC2 instance를 선택하고 <strong>Connect</strong> 버튼을 클릭합니다.
+<img src="/images/ec2/ec2connect.png" alt="Connect"></p>
+</li>
+<li>
+<p>먼저 <strong>Connect to your instance</strong> 창에서 <strong>Download Remote Desktop File</strong>을 클릭하여 EC2 instance에 접근할 수 있는 rdp file을 획득합니다.</p>
+</li>
+<li>
+<p>그리고 <strong>Get Password</strong>를 클릭합니다. 클릭하고 EC2 인스턴스를 생성하면서 선택한 <strong>pem file</strong>을 업로드합니다. 업로드를 하고 <strong>Decrypt Password</strong>를 클릭하면 password를 획득할 수 있습니다. 이 password를 저장해 둡니다.</p>
+</li>
+<li>
+<p><a href="https://docs.microsoft.com/ko-kr/windows-server/remote/remote-desktop-services/clients/remote-desktop-clients" target="_blank">RDP Client</a>
+를 Local PC에 설치합니다.</p>
+</li>
+<li>
+<p><strong>Microsoft Remote Desktop</strong>을 제대로 설치하였다면 2. 에서 다운로드 받았던 rdp file을 실행합니다.
+<img src="/images/ec2/rdp.png" alt="RDP"></p>
+</li>
+<li>
+<ol start="3">
+<li>에서 저장한 Password를 입력하면 EC2 Windows instance의 GUI 환경으로 접속하실 수 있습니다.</li>
+</ol>
+</li>
+<li>
+<p>접속 후 <strong>Network</strong> 허용 창이 뜨면 <strong>Yes</strong>를 누릅니다.</p>
+</li>
+</ol>
+<hr>
+<!-- raw HTML omitted -->
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/setup/" title="Jenkins Build Server 구성"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/setup/unity/" title="Unity 설치하기" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1619088549"></script>
+    <script src="/js/perfect-scrollbar.min.js?1619088549"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1619088549"></script>
+    <script src="/js/jquery.sticky.js?1619088549"></script>
+    <script src="/js/featherlight.min.js?1619088549"></script>
+    <script src="/js/highlight.pack.js?1619088549"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1619088549"></script>
+    <script src="/js/learn.js?1619088549"></script>
+    <script src="/js/hugo-learn.js?1619088549"></script>
+
+    <link href="/mermaid/mermaid.css?1619088549" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1619088549"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-189406980-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+  </body>
+</html>
+

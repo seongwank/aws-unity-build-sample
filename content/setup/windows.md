@@ -17,7 +17,7 @@ EC2 Windows를 생성하는 이유는 CodePipeline과 연동할 수 있는 Jenki
 3. 다음으로 검색창에서 `AWSCodePipelineCustomActionAccess`를 검색하여 선택한 후 **Next: Tags**버튼을 눌러 다음으로 넘어갑니다.
 ![IAM Role](/images/ec2/selectpipelinerole.png)
 
-1. **Add tags**부분에서는 이 실습에서는 아무것도 입력하실 필요가 없습니다. **Next: Review**버튼을 클릭하여 다음으로 넘어갑니다.
+4. **Add tags**부분에서는 이 실습에서는 아무것도 입력하실 필요가 없습니다. **Next: Review**버튼을 클릭하여 다음으로 넘어갑니다.
 ![IAM Role](/images/ec2/selectpipelinerole.png)
 
 5. 마지막으로 **Review**에서는 **Role name**에 `ec2-windows-jenkins-role`을 입력한 후 **Create role**버튼을 클릭하여 IAM role 생성을 마칩니다.
@@ -97,5 +97,5 @@ Download된 pem file은 본 실습에서 원격으로 Windows에 접속할때 �
 
 ---
 <p align="center">
-© 2020 Amazon Web Services, Inc. 또는 자회사, All rights reserved.
+© 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.
 </p>

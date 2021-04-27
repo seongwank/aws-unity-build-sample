@@ -1,0 +1,92 @@
+[
+{
+	"uri": "/ko/introduction/",
+	"title": "실습 소개",
+	"tags": [],
+	"description": "",
+	"content": "이 실습은 AWS CodePipeline을 사용하여 여러분들의 Android Unity project를 빌드할 수 있는 Pipeline을 구성해보는 것입니다. 좀 더 구체적으로 Windows EC2에서 Unity project를 빌드할 수 있는 Jenkins 서버를 구축하고 AWS CodePipeline과 연동하여 S3에 APK파일을 생성하게 됩니다. 이 실습을 응용하면 Android뿐만 아니라 다른 빌드버전을 생성하여 Artifacts를 S3에 생성하실 수 있습니다!\n이 워크샵은 크게 3가지 스텝으로 이루어져 있습니다.\n EC2 instance를 사용하여 Windows 기반 Jenkins 서버를 구성합니다. Jenkins 서버와 여러분의 SourceCode를 AWS Codepipeline와 연동하여 Pipeline을 생성합니다. CodePipeline 생성을 마치고 실제로 어떻게 동작하는지 알아봅니다.   "
+},
+{
+	"uri": "/ko/introduction/prerequisites/",
+	"title": "사전 준비",
+	"tags": [],
+	"description": "",
+	"content": "  이 실습은 AWS console에서 진행이 됩니다. 따라서 이미 사용하고 계신 AWS 계정이나 새로운 AWS 계정 을 생성하셔야 합니다.\n  Unity Build를 해보기 위해서는 먼저 SourceCode가 필요합니다. 이 실습에서는 쉽게 따라하실 수 있도록 빈 Unity 프로젝트를 GitHub에 생성해 놓았습니다. GitHub 계정이 있어야 GitHub 프로젝트를 사용하여 AWS CodePipeline과 연동하실 수 있습니다. 계정이 없으시다면 여기 에서 간단하게 생성하실 수 있습니다.\n  Build 서버는 Windows EC2 instance로 구성합니다. 따라서 Windows에 원격으로 접속하기 위한 Microsoft Remote Desktop 을 설치하셔야 원활한 실습 진행이 가능합니다. 여러분의 Local PC가 Microsoft Remote Desktop 을 설치할 수 있는 환경인지 확인해보세요.\n  마지막으로 AWS CodePipeline , Unity , Jenkins 에 관한 간단한 지식입니다. 물론 이 실습은 해당 지식이 없어도 진행이 가능합니다. 하지만 실습에 사용되는 서비스와 어플리케이션이 어떤 역할을 하는지 미리 알고 진행하신다면 더욱 쉽게 실습을 진행하실 수 있습니다.\n   "
+},
+{
+	"uri": "/ko/",
+	"title": "홈",
+	"tags": [],
+	"description": "",
+	"content": "AWS CodePipeline으로 Unity Build Pipeline 구현하기  "
+},
+{
+	"uri": "/ko/setup/",
+	"title": "Jenkins Build Server 구성",
+	"tags": [],
+	"description": "",
+	"content": "본 실습은 Window OS에서 Jenkins를 활용하여 Unity Build Server를 구축하기 위한 과정입니다. 아래와 같이 4개의 주제로 이루어져 있습니다. 4가지 주제 모두 따라하셔야 workshop을 정상적으로 진행하실 수 있습니다. 이 부분은 실습을 진행하기 위한 Application을 설치하고 설정하는 과정이기 때문에 조금 길 수 있습니다. AWS CodePipeline 만들기, 실행하기는 이보다 간단하니 이 점 참고하시고 실습을 진행하시면 심신안정에 도움이 됩니다.\n\r목차  EC2 Windows \u0026amp; RDP client 설치하기 Unity 설치하기 Jenkins 설치하기 Jenkins Unity Build Job 생성하기   "
+},
+{
+	"uri": "/ko/setup/windows/",
+	"title": "EC2 Windows &amp; RDP client 설치하기",
+	"tags": [],
+	"description": "",
+	"content": "EC2에 적용할 IAM role 생성 EC2 Windows를 생성하는 이유는 CodePipeline과 연동할 수 있는 Jenkins 서버를 구성하는 목적입니다. 따라서 EC2 instance가 CodePipeline과 연동하기 위한 권한을 먼저 생성하고, EC2 instance에 적용할 수 있도록 합니다.\n\r  IAM role console 에 접근합니다. 그리고 왼쪽 패널의 Roles를 클릭한 후, Create Role을 클릭합니다.   그리고 Select type of trusted entity항목에서 AWS service를 클릭하고, Choose a use case에서 EC2를 클릭한 후 Next: Permissons버튼을 눌러 다음으로 넘어갑니다.   다음으로 검색창에서 AWSCodePipelineCustomActionAccess를 검색하여 선택한 후 Next: Tags버튼을 눌러 다음으로 넘어갑니다.   Add tags부분에서는 이 실습에서는 아무것도 입력하실 필요가 없습니다. Next: Review버튼을 클릭하여 다음으로 넘어갑니다.   마지막으로 Review에서는 Role name에 ec2-windows-jenkins-role을 입력한 후 Create role버튼을 클릭하여 IAM role 생성을 마칩니다.\n  EC2 Windows Server Launch 이 과정은 EC2 Instance를 생성하기 위한 것입니다. 꼭 이 과정을 따라서 생성하실 필요는 없습니다. 다만 Unity Build를 위한 Jenkins 서버를 구성하기 위한 과정입니다. 따라서 Unity Build를 위한 충분한 Instance type, storage를 고려하셔서 생성하시는 걸 추천드립니다.\n\r  EC2 Dashboard 에서 Launch instance 버튼을 클릭합니다.   EC2 생성 페이지의 Step 1: Choose an Amazon Machine Image - AMI에서 Windows AMI를 선택합니다. 이 실습에서는 Microsoft Windows Server 2019 Base - ami-0ff0049cd3c9a5fcb 를 선택하겠습니다. 물론 꼭 이 버전의 Windows Server AMI를 선택해야 하는 것은 아닙니다. Jenkins, Unity가 설치 가능한 다른 Windows 버전 AMI를 선택 하실 수 있습니다.\n\r  Instance Type을 선택합니다. 여기서는 c5large를 선택하였습니다. 이 역시 다른 type의 Instance를 선택하셔도 괜찮습니다. 다만 Unity Build를 위한 Jenkins 서버를 구축하는 목적임을 고려하여 적당한 타입의 Instance를 선택하는 것이 좋습니다. 이 실습을 위한 EC2 Instance라면, 실행하는 Build는 Empty Project이니 크게 무거운 작업이 아니기 때문에 너무 높은 Instance Type을 선택하실 필요는 없습니다.\n\r  다음으로 Configure Instance Details 입니다. 여기서 설정하셔야 하는 부분은 Network, Subnet입니다.\n Network는 VPC를 선택하는 곳입니다. 여러분의 Console에서 생성된 VPC중 적절한 VPC를 골라 설정합니다, 그렇지 않다면 AWS 계정을 생성했을 때 기본으로 생성된 default VPC를 선택합니다. Subnet도 마찬가지로 여러분이 이미 생성한 Subnet중에서 선택할 수 있습니다. 만약 생성한 Subnet이 없다면 Create new subnet 을 선택하여 새로운 Subnet을 생성합니다. Subnet을 생성할때 AZ - Availability Zone 은 Region내에 존재하는 AZ 중 아무거나 선택하셔도 괜찮습니다. IAM role항목에서는 여러분이 윗 단계에서 생성하신 ec2-windows-jenkins-role를 찾아 선택합니다.    나머지 설정은 이 실습을 진행하는데 큰 의미가 없습니다. 따라서 그대로 놔두고 Next:Add Storage를 클릭합니다.\n  Step. 4 Storage는 Unity3d 설치를 위해 Root Volume type의 Size를 최소 30gb 이상으로 설정하는 것이 좋습니다. 그리고 Next:Add Tag를 클릭합니다.\n  Next:Add Tag에서는 아무것도 입력하지 않고, Next:Configure Security Group를 클릭합니다.\n  Step 6: Configure Security Group은 총 2개의 Inbound Rule을 추가합니다.\n Type: RDP, Protocol: TCP, Port Range:3389, Source: Custom 0.0.0.0/0 Type: Custom TCP Rule, Potocol: TCP, Port Range:8080, Source: Custom 0.0.0.0/0     입력을 마치면 Review and Launch 를 클릭 후, 제대로 입력이 되었는지 리뷰 후 Launch를 누릅니다.\n  마지막으로 EC2 instance에 접근할 수 있는 key pair를 선택하는 Step입니다. 만약 이미 사용하고 있는 key pair가 있다면 Choose an existing key pair를 선택하여 이미 갖고있는 key pair를 선택하면 됩니다. 만약 새로운 key pair가 필요하다면 Create a new key pair를 선택하여 key pair name을 입력 후 Download Key Pair를 클릭하여 file을 Local PC에 다운로드 합니다. Download된 pem file은 본 실습에서 원격으로 Windows에 접속할때 꼭 필요합니다.\n\r  EC2 instance의 생성이 완료되었습니다!\n  RDP Client 설치 및 연결 이 과정은 RDP client를 Local PC에 설치하기 위한 과정입니다. 2-2 Jenkins 설치, 2-3 Unity 설치는 RDP client로 EC2 instance GUI환경에 접근한 후 진행됩니다.\n\r  먼저 RDP로 접근할 수 있는 Password를 확인해야 합니다. EC2 Dashboard -\u0026gt; INSTANCES -\u0026gt; Instances 항목에서 생성한 Windows EC2 instance를 선택하고 Connect 버튼을 클릭합니다.   먼저 Connect to your instance 창에서 Download Remote Desktop File을 클릭하여 EC2 instance에 접근할 수 있는 rdp file을 획득합니다.\n  그리고 Get Password를 클릭합니다. 클릭하고 EC2 인스턴스를 생성하면서 선택한 pem file을 업로드합니다. 업로드를 하고 Decrypt Password를 클릭하면 password를 획득할 수 있습니다. 이 password를 저장해 둡니다.\n  RDP Client 를 Local PC에 설치합니다.\n  Microsoft Remote Desktop을 제대로 설치하였다면 2. 에서 다운로드 받았던 rdp file을 실행합니다.   에서 저장한 Password를 입력하면 EC2 Windows instance의 GUI 환경으로 접속하실 수 있습니다.    접속 후 Network 허용 창이 뜨면 Yes를 누릅니다.\n   "
+},
+{
+	"uri": "/ko/setup/unity/",
+	"title": "Unity 설치하기",
+	"tags": [],
+	"description": "",
+	"content": "\r이 과정에서는 원격으로 Windows EC2에 접속을 한 후 진행하는 실습입니다.\n\rIE download 권한 허용 초기 Windows EC2 instance는 IE Enhanced Security Configuration이 활성화 되어있어서 File을 다운로드할 수 없습니다. 따라서 다운도르 문제 해결 문서 의 해결 방법을 따라하여 다운로드가 가능하도록 IE 설정을 변경합니다. Unity 설치   원격으로 Windows EC2 instance를 접속하여 인터넷 브라우저에서 Unity Download 링크에 접속하여 Unity Hub를 다운로드 받습니다.   Unity를 설치하는데는 특별한 설정이 필요없습니다. 기본 설정 그대로 설치를 완료합니다.\n  설치가 완료되면 Unity Hub를 실행하여 오른쪽 상단의 톱니바퀴-Preferences를 클릭합니다. 그리고 License Management를 클릭하고 하단의 Manage License를 클릭 그리고 연속하여 Login을 클릭하여 Log-in을 진행합니다. ACTIVATE NEW LICENSE를 클릭합니다. Unity License를 얻기 위해서는 Unity 계정이 필요합니다. 계정이 없다면 이 과정을 통하여 새로운 계정을 생성하실 수 있습니다.\n\r  License Agreement의 Unity Personal을 클릭합니다. 그리고 I don\u0026rsquo;t use Unity in a professional capacity를 선택한 후 DONE을 클릭합니다.    만약 이미 License를 가지고 있다면, 새로운 Personal License대신 갖고 계신 License를 사용하셔도 괜찮습니다.\n\r License가 활성화 되면, 왼쪽 상단의 \u0026lt;- Preferences를 클릭하고 Installs를 클릭합니다.\n  ADD 버튼을 클릭하여 Recommended Release에 있는 버전을 선택하고 NEXT를 클릭합니다.   Add modules to your install Step에서는 Android Build Support를 선택하고 NEXT를 클릭합니다.    만약 용량이 부족하여 설치가 되지 않는다면 여기 를 참고하여 EBS volume을 확장할 수 있습니다.\n\r설치가 모두 완료되면 Jenkins Job을 생성할 준비가 되었습니다.   "
+},
+{
+	"uri": "/ko/setup/jenkins/",
+	"title": "Jenkins 설치하기",
+	"tags": [],
+	"description": "",
+	"content": "\r이 과정에서는 원격으로 Windows EC2에 접속을 한 후 진행하는 실습입니다.\n\rJava 설치   다운로드 권한을 활성화 시켰다면 Jenkins를 설치하기 위해 먼저 Java JDK를 설치해야 합니다. Windows x64 product의 JDK 11을 다운로드 합니다. 본 실습에서는 JDK 11 사용합니다. 현재(2020년 2월) Jenkins는 JDK 8, JDK 11 버전 을 이용해 설치가 가능합니다. 오직 Jenkins 설치에만 사용하는 것이기 때문에 혹시 여러분들이 실제로 사용하는 JDK 버전과 맞지 않아 고민하실 필요없습니다. 또한 openJDK 뿐만 아니라 oracle JDK로 설치하셔도 무방합니다.\n\r  File explorer에서 Download 폴더의 openjdk-11+xx_windows-x64_bin폴더 내부에 있는 jdk-11을 C:\\Program Files\\java의 하위 폴더로 복사합니다.   Jenkins 설치   JDK가 설치가 완료되면 Jenkins를 설치하실 수 있습니다. 먼저 Jenkins의 Windows 버전을 다운로드 받습니다. 본 실습에서는 2.263.3 LTS 버전을 사용하였습니다. 이 버전이 실습을 수행하기 위한 필수 버전은 아닙니다. 다른 2.xxx.x 버전을 다운로드 받으셔도 실습을 수행하실 수 있습니다.\n\r  Jenkins를 다운로드 받은 후 File explorer에서 Download 폴더의 jenkins를 실행하여 설치를 합니다. 설치 중 Service Logon Credentials Step에서는 Run service as local or domain user를 선택합니다. 그리고 Account는 Administrator이고 Password는 EC2 Console에서 RDP client로 접근하기 위해 열람한 Password입니다.\n\r만약 위 그림과 같이 설치가 실패한다면 아래의 과정을 거쳐 문제를 해결하실 수 있습니다.  Windows 왼쪽 하단의 Search(돋보기 모양)을 클릭하고 Administrative Tools를 검색하고 Local Security Policy를 실행합니다. Local Policies를 클릭하고, User Rights Assignment를 클릭합니다. 오른쪽 panel에서 Log on as a service 항목을 오른쪽 클릭을하여 properties를 선택합니다. Add User or Group을 클릭하고 Enter the object names to select에서 administrator를 입력하고 Check Names를 클릭한 후 OK를 클릭합니다.     설치 중 Java home directory를 선택하는 창에서는, 위에서 복사해놓은 C:\\Program Files\\java\\jdk-11을 지정하시면 됩니다.   Jenkins 설치가 완료되면 완료 창에서 시작 버튼을 눌러 Jenkins를 실행합니다.\n  원격으로 접근한 Windows EC2 instance에서 인터넷 브라우저를 열어 localhist:8080에 접근합니다. Unlock Jenkins 에서능 initialAdminPassword file을 Notepad에서 열어 Administrator password를 얻어 입력합니다. Customize Jenkins에서는 Install suggested plugins를 선택합니다. 모든 설정을 완료하고 Save and Finish를 눌러 설치를 마칩니다.   4번까지 진행하면, Jenkins 설치가 모두 완료가 되었습니다. 하지만 Local PC와 Codepipeline이 접근하기 위해서는 Windows의 port를 열어 접근할 수 있도록 조치를 취해야 합니다.\n Windows 왼쪽 하단의 Search(돋보기 모양)를 클릭합니다. Windows Defender Firewall을 타이핑하고 Windows Firewall control panel를 클릭합니다. 왼쪽 프레임의 Advanced settings를 선택합니다. 왼쪽 프레임의 Inbound Rules를 클릭합니다. 그리고 오른쪽 프레임의 New Rule을 클릭합니다. Port를 선택하고 Next를 클릭합니다. TCP를 선택하고 Specific local ports를 클릭하고 8080을 입력한 후 Next를 클릭합니다. Allow the connection을 선택하고 Next를 클릭합니다. Public을 선택하고 Next를 클릭합니다. Name에 Jenkins port를 입력하고 Finish를 클릭합니다.     Port가 제대로 연결되었는지 확인하기 위하여 Windows EC2 instance의 Public DNS를 이용하여 테스트해봅니다. Public DNS는 AWS console의 EC2 dashboard -\u0026gt; Running Instances -\u0026gt; Windows EC2 선택 -\u0026gt; Description의 Public DNS(IPv4) 에서 확인하실 수 있습니다.   혹시 public DNS로 jenkins에 접근이 가능하지 않다면, Local PC에서 실행중인 VPN등의 시스템이 8080 port를 차단하고 있는지 확인이 필요합니다.\n\r "
+},
+{
+	"uri": "/ko/setup/jenkinsjob/",
+	"title": "Unity Build Job 생성하기",
+	"tags": [],
+	"description": "",
+	"content": "\r한국어로 설정된 Local PC에서 public DNS로 젠킨스에 접속하시면 한글로 번역된 Jenkins 화면을 보실 수 있습니다. 하지만 이 실습에서 설정한 EC2 instance에서 localhost로 접근하셨을때는 영문으로 된 Jenkins 화면이 보입니다. 각 항목들이 헷갈리시지 않도록 한글-영문으로 구분되어 보이는 항목들은 한글-영문을 모두 병기하였으니 참고하셔서 실습하시면 됩니다.\n\rJenkins Install plug-ins \u0026amp; Configuration   이제 Jenkins를 열어 플러그인과 설정을 합니다. 원격으로 접속해서 설정할때는 localhost:8080으로 접근하고, Local PC에서 Jenkins를 설정하시려면 Your EC2 public DNS adderess:8080으로 접근하시면 됩니다.\n\r  Jenkins에 접속하셨으면 Jenkins 관리-Manage Jenkins를 클릭한 다음, 플러그인 관리-Manage Plugins를 클릭하고 설치가능-Available 탭을 클릭합니다.   AWS CodePipeline를 검색하고 왼쪽 체크 박스를 클릭합니다. 그리고 Unity3d plugin를 검색하고 왼쪽 체크 박스를 클릭합니다. 그리고 맨 하단의 재시작 없이 설치하기-Install without restart를 클릭하여 설치를 완료합니다.   설치가 완료되면 다시 첫 화면에서 Jenkins 관리를 클릭하고 Global Tool Configuration를 클릭합니다.\n  Unity3d 항목의 Unity3d installations를 클릭합니다. Add Unity3d를 클릭하고 Name에 Unity 2019.xx.xxf(your version)를 입력합니다. 그리고 Installation directory에 설치된 Unity의 Path를 입력합니다.\n  이 과정까지 실습과 동일하게 따라오셨다면 Unity Directory Path는 C:\\Program Files\\Unity\\Hub\\Editor\\20xx.x.xxfx입니다. 그렇지 않다면 여러분이 Unity를 설치한 Drectory Path를 입력합니다.\n\rJenkins Unity Build Job 생성   Jenkins의 첫화면에서 왼쪽 frame에 있는 새로운 Item-New item을 클릭합니다.\n  Enter an item name field에 unity-android-build라고 입력한 후, 하단의 Freestyle proeject를 선택하고 OK를 누릅니다.\n  Job 생성화면에서 소스 코드 관리-Source Code Management 탭에서 AWS CodePipeline를 선택합니다.\n  AWS Region에서 여러분의 Region을 선택합니다. 이번 실습에서는 Asia Pacific(Seoul) ap-northeast-2를 선택하였습니다. 그리고 Category에서는 Build를 선택합니다. 마지막으로 Provider는 android-build-provider를 입력합니다. 그외에는 아무것도 입력하지 않고 그대로 냅두셔도 괜찮습니다. Provider는 CodePipeline의 Build 설정에 꼭 필요한 변수입니다.\n\r  빌드 유발-Build Triggers에서 Poll SCM을 선택하고 * * * * *를 입력합니다.   Build에서 Add build step을 선택한 다음, Invoke Unity3d Editor를 클릭합니다.\n  Unity3d installation name에서 여러분이 Global Configuration에서 입력한 Unity3d Editor를 선택합니다.\n  Editor command line arguments에 -quit -batchmode -executeMethod Builder.PerformAndroidBuild -logFile \u0026quot;C:\\Users\\Administrator\\Documents\\android_build.log\u0026quot;를 입력합니다.\n  다시 한번 Add build step을 선택하고, Execute Windows batch command를 클릭합니다.\n  Command field의 첫번째 라인에 mkdir apk, 두번째 라인에 move android_build_lab.apk apk/android_build_lab.apk를 입력합니다.   마지막으로 빌드 후 조치-Post-build Actions항목에서 빌드 후 조치 추가-Add post-build action을 클릭한 후 AWS CodePipeline Publisher를 클릭합니다. 그리고 Location field에 /apk/를 입력합니다. Artifact Name field에는 BuildArtifact를 입력합니다. Artifact Name는 CodePipeline의 Build 설정에 꼭 필요한 변수입니다.\n\r  가장 하단의 저장-Save 버튼을 클릭하여 Jenkins Job 생성을 완료합니다.\n   "
+},
+{
+	"uri": "/ko/codepipline/",
+	"title": "AWS CodePipline 만들기",
+	"tags": [],
+	"description": "",
+	"content": "\r본 Step에서는 AWS Codepipline을 만들고 Jenkins와 연동하는 작업이 진행됩니다. 모든 작업은 AWS console에서 진행됩니다.\n\rGitHub Repository fork 하기 먼저 AWS CodePipeline을 시작하기에 앞서, GitHub에 이 실습에서 사용할 Repository를 생성해야 합니다. 이미 이 실습을 진행하기 위한 Empty unity project가 준비되어 있습니다. 여기 를 클릭하여 Github repository 브라우저에 엽니다. 그리고 이 Repository를 여러분의 Account에 Fork하도록 합니다. 아래의 사진과 같이 Github page에서 Fork 버튼을 클릭하면 간단하게 여러분의 Git Account를 사용하여 AWS CodePipeline에 연결할 수 있습니다. AWS CodePipeline 생성하기   AWS CodePipeline Console의 Create new pipeline버튼을 클릭합니다.   Choose pipeline settings 항목의 pipeline name에 unity-build-pipeline을 입력합니다. Service role은 New Service role을 선택하고 나머지 설정은 그대로 둡니다.   Add source stage의 Source provider에서는 **GitHub (Version 2)**을 선택합니다. Connection에서 Connect to GitHub을 클릭합니다.   Create GitHub App connection 의 Conenction name에서는 자유롭게 name을 작성하실 수 있습니다. 여기서는 간단하게 my GitHub이라고 작성하겠습니다. 작성 후 Connect to GitHub을 클릭합니다. 클릭 후 새로 나오는 창에서 Authorize AWS Connector for GitHub을 클릭합니다.   아래의 그림과 같은 창이 뜨면 Install a new app을 클릭합니다.   아래와 같은 창이 뜨면, All repositories를 선택해도 되나 연결하고자하는 특정 Repository만 선택할 수 있습니다. 특정 Repository만 연결하고자 한다면 Only select repositories를 선택하고, 윗 단계 에서 Fork한 empty_unity_sample을 선택합니다.   Repository name에서는 이전 step에서 Fork한 Github Repository를 선택합니다.(\u0026ldquo;your github account\u0026rdquo;/empty_unity_sample) Branch name은 main를 선택합니다. Change detection options은 Start the pipeline on source code change를 해제합니다. Output arthifact format에서는 CodePipeline default를 선택한 후 Next를 누릅니다.   Build provider에서 Add Jenkins를 선택합니다. Provider name은 JenkinsProvider을 입력합니다. Server URL에는 Step 2.3에서 테스트해본 Windows EC2 public DNS의 주소를 활용하여 입력합니다. http://your-ec2-public-dns:8080/job/. Project name은 unity-android-build를 입력합니다. 그리고 Next를 클릭합니다. Provider name은 여러분이 생성하신 Jenkins Job의 AWS Codepipeline step에서 입력하신 Provider 이름입니다. 그리고 Project name은 Jenkins Job name입니다.\n\r  Add deploy stage에서는 Deploy provider에서 Amazon S3를 선택합니다 Region은 여러분의 Region을 선택하시면 됩니다(이 실습에서는 ap-northeast-2를 기준으로 진행합니다). 그리고 output artifacts를 저장할 Bucket을 선택합니다. 만약 Bucket이 없다면 아래의 그림과 같이 S3 Console에서 간단하게 생성하실 수 있습니다.   Deployment path에서는 android-output를 입력합니다. 그리고 Extract file before deploy를 체크한후 NEXT를 클릭합니다.   제대로 생성이 되었는지 리뷰하고, 이상이 없다면 Create Pipeline을 클릭하여 Pipeline을 생성합니다.\n   "
+},
+{
+	"uri": "/ko/execution/",
+	"title": "AWS CodePipeline 실행하기",
+	"tags": [],
+	"description": "",
+	"content": "\r이 단계에서는 위에서 완료한 CodePipeline의 생성을 완료하고, 실행 과정을 살펴보는 실습입니다.\n\rAWS CodePipeline 실행하기   CodePipeline 생성을 마치면 자동으로 pipeline이 실행이 되어 Source 단계가 In progress라고 변경되는 것을 확인하실 수 있습니다. 여러분이 직접 pipeline을 실행해보시려면 Release change를 누르시면 pipeline이 실행됩니다. 또한 이 실습에서는 다루지 않았지만 CodePipeline을 자동으로 실행하고자 한다면 이 문서 나 CodePipeline의 notification rule 에서 설정하실 수 있습니다.\n\r  Source 단계가 성공적으로 완료되면 Build 단계가 In progress상태로 변하여 진행 중 인것을 알 수 있습니다. 여기서 Jenkins의 동작 상태를 확인해보시려면 Custom android-build-provider를 클릭하면 Jenkins Job 페이지로 전환됩니다.   Build 단계가 끝나고 Deploy 단계까지 끝나면 아래 그림과 같이 모든 단계가 Succeeded라고 표시됩니다.   S3에 빌드가 완료된 artifacts를 확인해보시려면 Deploy 단계의 Amazon S3를 클릭하면 S3 bucket으로 접속해서 artifacts를 확인할 수 있습니다.   "
+},
+{
+	"uri": "/ko/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/ko/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/ko/credits/",
+	"title": "크레딧",
+	"tags": [],
+	"description": "",
+	"content": "패키지와 라이브러리  mermaid - generation of diagram and flowchart from text in a similar manner as markdown font awesome - the iconic font and CSS framework jQuery - The Write Less, Do More, JavaScript Library lunr - Lunr enables you to provide a great search experience without the need for external, server-side, search services\u0026hellip; horsey - Progressive and customizable autocomplete component clipboard.js - copy text to clipboard highlight.js - Javascript syntax highlighter modernizr - A JavaScript toolkit that allows web developers to use new CSS3 and HTML5 features while maintaining a fine level of control over browsers that don\u0026rsquo;t support  도구  Netlify - Continuous deployement and hosting of this documentation Hugo   "
+}]

@@ -31,7 +31,7 @@ Mac instance가 나오면 ios빌드까지 추가하기
 test 환경으로 자동으로 artifacts가 입력되고 알림보내기(aws device farm)
 -->
 <p align="center">
-© 2020 Amazon Web Services, Inc. 또는 자회사, All rights reserved.
+© 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.
 </p>
 
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>실습 소개 on AWS Unity Android Build Pipeline</title>
+    <link>/introduction/</link>
+    <description>Recent content in 실습 소개 on AWS Unity Android Build Pipeline</description>
+    <generator>Hugo -- gohugo.io</generator><atom:link href="/introduction/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>사전 준비</title>
+      <link>/introduction/prerequisites/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/introduction/prerequisites/</guid>
+      <description>이 실습은 AWS console에서 진행이 됩니다. 따라서 이미 사용하고 계신 AWS 계정이나 새로운 AWS 계정 을 생성하셔야 합니다.
+  Unity Build를 해보기 위해서는 먼저 SourceCode가 필요합니다. 이 실습에서는 쉽게 따라하실 수 있도록 빈 Unity 프로젝트를 GitHub에 생성해 놓았습니다. GitHub 계정이 있어야 GitHub 프로젝트를 사용하여 AWS CodePipeline과 연동하실 수 있습니다. 계정이 없으시다면 여기 에서 간단하게 생성하실 수 있습니다.
+  Build 서버는 Windows EC2 instance로 구성합니다. 따라서 Windows에 원격으로 접속하기 위한 Microsoft Remote Desktop 을 설치하셔야 원활한 실습 진행이 가능합니다.</description>
+    </item>
+    
+  </channel>
+</rss>

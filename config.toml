@@ -44,9 +44,9 @@ home = [ "HTML", "RSS", "JSON"]
     weight = 1
     languageName = "한국어"
 
-#  [Languages.en]
-#    weight = 2
-#    languageName = "English"
+  [Languages.en]
+    weight = 2
+    languageName = "English"
 
 [deployment]
   [[deployment.targets]]

@@ -37,21 +37,21 @@ pre: "<b>3. </b>"
 7. **Repository name**에서는 이전 step에서 Fork한 Github Repository를 선택합니다.(**"your github account"/empty_unity_sample**) **Branch name**은 **main**를 선택합니다. **Change detection options**은 **Start the pipeline on source code change**를 **해제**합니다. **Output arthifact format에서는** **CodePipeline default**를 선택한 후 **Next**를 누릅니다.
 ![CodePipeline Console](/images/codepipeline/setrepo.png)
 
-4. **Build provider**에서 **Add Jenkins**를 선택합니다. **Provider name**은 `JenkinsProvider`을 입력합니다. **Server URL**에는 Step 2.3에서 테스트해본 Windows EC2 public DNS의 주소를 활용하여 입력합니다. **http://your-ec2-public-dns:8080/job/**. **Project name**은 `unity-android-build`를 입력합니다. 그리고 **Next**를 클릭합니다.
+8. **Build provider**에서 **Add Jenkins**를 선택합니다. **Provider name**은 `JenkinsProvider`을 입력합니다. **Server URL**에는 Step 2.3에서 테스트해본 Windows EC2 public DNS의 주소를 활용하여 입력합니다. **http://your-ec2-public-dns:8080/job/**. **Project name**은 `unity-android-build`를 입력합니다. 그리고 **Next**를 클릭합니다.
 ![CodePipeline Console](/images/codepipeline/buildstage.png)
 {{% notice info %}}
 Provider name은 여러분이 생성하신 Jenkins Job의 AWS Codepipeline step에서 입력하신 Provider 이름입니다.
 그리고 Project name은 Jenkins Job name입니다.
 {{% /notice %}}
 
-5. **Add deploy stage**에서는 **Deploy provider**에서 **Amazon S3**를 선택합니다 **Region**은 여러분의 Region을 선택하시면 됩니다(이 실습에서는 **ap-northeast-2**를 기준으로 진행합니다). 그리고 output artifacts를 저장할 Bucket을 선택합니다. 만약 Bucket이 없다면 아래의 그림과 같이 S3 Console에서 간단하게 생성하실 수 있습니다.
+9. **Add deploy stage**에서는 **Deploy provider**에서 **Amazon S3**를 선택합니다 **Region**은 여러분의 Region을 선택하시면 됩니다(이 실습에서는 **ap-northeast-2**를 기준으로 진행합니다). 그리고 output artifacts를 저장할 Bucket을 선택합니다. 만약 Bucket이 없다면 아래의 그림과 같이 S3 Console에서 간단하게 생성하실 수 있습니다.
 ![CodePipeline Console](/images/codepipeline/createbucket.png)
 
-6. **Deployment path**에서는 `android-output`를 입력합니다. 그리고 **Extract file before deploy**를 체크한후 **NEXT**를 클릭합니다. 
+10. **Deployment path**에서는 `android-output`를 입력합니다. 그리고 **Extract file before deploy**를 체크한후 **NEXT**를 클릭합니다. 
 ![CodePipeline Console](/images/codepipeline/deploystage.png)
 
-7. 제대로 생성이 되었는지 리뷰하고, 이상이 없다면 **Create Pipeline**을 클릭하여 Pipeline을 생성합니다.
+11. 제대로 생성이 되었는지 리뷰하고, 이상이 없다면 **Create Pipeline**을 클릭하여 Pipeline을 생성합니다.
 ---
 <p align="center">
-© 2020 Amazon Web Services, Inc. 또는 자회사, All rights reserved.
+© 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.
 </p>

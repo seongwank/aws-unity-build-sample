@@ -53,5 +53,5 @@ Unity License를 얻기 위해서는 Unity 계정이 필요합니다. 계정이 
 
 ---
 <p align="center">
-© 2020 Amazon Web Services, Inc. 또는 자회사, All rights reserved.
+© 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.
 </p>
