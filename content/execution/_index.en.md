@@ -8,7 +8,7 @@ pre: "<b>4. </b>"
 In this step, after completing the creation of AWS CodePipeline, we will take a closer look at the steps in AWS CodePipline.
 {{% /notice %}}
 
-## AWS CodePipeline 실행하기
+## Test AWS CodePipeline
 
 1. When you finish creating the CodePipeline, the pipeline is automatically executed, and you can see that the Source stage changes to In progress.
 ![codepipeline](/images/execution/initialexecution.png)

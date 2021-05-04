@@ -7,6 +7,8 @@ pre: "<b>1. </b>"
 이 실습은 AWS CodePipeline을 사용하여 여러분들의 Android Unity project를 빌드할 수 있는 Pipeline을 구성해보는 것입니다.
 좀 더 구체적으로 Windows EC2에서 Unity project를 빌드할 수 있는 Jenkins 서버를 구축하고 AWS CodePipeline과 연동하여 S3에 APK파일을 생성하게 됩니다.
 이 실습을 응용하면 Android뿐만 아니라 다른 빌드버전을 생성하여 Artifacts를 S3에 생성하실 수 있습니다!
+이 워크샵은 약 2시간 정도 소요될 예정입니다.
+이 랩을 그대로 따라하시면, 약간의 EC2 비용이 청구될 수 있습니다. 하지만 free tier 의 인스턴스를 선택해서 랩을 할 수 있습니다
 
 
 이 워크샵은 크게 3가지 스텝으로 이루어져 있습니다.
